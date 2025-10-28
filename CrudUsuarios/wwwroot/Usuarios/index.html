@@ -54,18 +54,19 @@
     </div>
 
     <script>
-    const apiUrl = '/api/usuarios';
+        const apiUrl = '/api/usuarios';
+        let modoEdicion = false;
 
-    async function cargarUsuarios() {
-      const res = await fetch(apiUrl);
-      const data = await res.json();
+        async function cargarUsuarios() {
+            const res = await fetch(apiUrl);
+            const data = await res.json();
 
-      const tbody = document.querySelector('#tablaUsuarios tbody');
-      tbody.innerHTML = '';
+            const tbody = document.querySelector('#tablaUsuarios tbody');
+            tbody.innerHTML = '';
 
-      data.forEach(u => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
+            data.forEach(u => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
           <td>${u.id}</td>
           <td>${u.nombre}</td>
           <td>${u.correo}</td>
@@ -76,43 +77,69 @@
             <button class="btn btn-sm btn-danger" onclick="eliminarUsuario(${u.id})">Eliminar</button>
           </td>
         `;
-        tbody.appendChild(tr);
-      });
-    }
+                tbody.appendChild(tr);
+            });
+        }
 
-    document.getElementById('usuarioForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const nuevoUsuario = {
-        nombre: nombre.value,
-        correo: correo.value,
-        edad: parseInt(edad.value),
-        telefono: telefono.value
-      };
+        document.getElementById('usuarioForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-      await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(nuevoUsuario)
-      });
+            const usuario = {
+                nombre: nombre.value.trim(),
+                correo: correo.value.trim(),
+                edad: parseInt(edad.value),
+                telefono: telefono.value.trim()
+            };
 
-      e.target.reset();
-      cargarUsuarios();
-    });
+            const id = document.getElementById('usuarioId').value;
 
-    async function eliminarUsuario(id) {
-      if (confirm('¿Seguro que deseas eliminar este usuario?')) {
-        await fetch(`${apiUrl}/${id}`, { method: 'DELETE' });
+            if (!modoEdicion) {
+                // Crear nuevo usuario
+                await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(usuario)
+                });
+            } else {
+                // Editar usuario existente
+                usuario.id = parseInt(id);
+                await fetch(`${apiUrl}/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(usuario)
+                });
+                modoEdicion = false;
+                document.getElementById('btnGuardar').textContent = '+';
+            }
+
+            e.target.reset();
+            document.getElementById('usuarioId').value = '';
+            cargarUsuarios();
+        });
+
+        async function editarUsuario(id) {
+            const res = await fetch(`${apiUrl}/${id}`);
+            const u = await res.json();
+
+            document.getElementById('usuarioId').value = u.id;
+            document.getElementById('nombre').value = u.nombre;
+            document.getElementById('correo').value = u.correo;
+            document.getElementById('edad').value = u.edad;
+            document.getElementById('telefono').value = u.telefono;
+
+            document.getElementById('btnGuardar').textContent = '✔';
+            modoEdicion = true;
+        }
+
+        async function eliminarUsuario(id) {
+            if (confirm('¿Seguro que deseas eliminar este usuario?')) {
+                await fetch(`${apiUrl}/${id}`, { method: 'DELETE' });
+                cargarUsuarios();
+            }
+        }
+
+        // Cargar usuarios al iniciar
         cargarUsuarios();
-      }
-    }
-
-    function editarUsuario(id) {
-      alert(`Función de edición en desarrollo (id: ${id})`);
-      // Podrías implementar un modal Bootstrap aquí más adelante.
-    }
-
-    // Cargar al iniciar
-    cargarUsuarios();
     </script>
 </body>
 </html>
