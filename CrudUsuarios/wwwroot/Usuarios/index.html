@@ -8,7 +8,7 @@
 </head>
 <body class="bg-light">
     <div class="container py-4">
-        <h1 class="mb-4 text-center">Gestión de Usuarios 👥</h1>
+        <h1 class="mb-4 text-center">Gestión de Usuarios</h1>
 
         <!-- FORMULARIO -->
         <div class="card p-3 mb-4 shadow-sm">
@@ -22,14 +22,14 @@
                     <div class="col-md-3">
                         <input type="email" id="correo" class="form-control" placeholder="Correo" required>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <input type="number" id="edad" class="form-control" placeholder="Edad" required>
                     </div>
                     <div class="col-md-3">
                         <input type="text" id="telefono" class="form-control" placeholder="Teléfono" required>
                     </div>
-                    <div class="col-md-1">
-                        <button type="submit" id="btnGuardar" class="btn btn-primary w-100">+</button>
+                    <div class="col-md-2">
+                        <button type="submit" id="btnGuardar" class="btn btn-primary w-100">Guardar</button>
                     </div>
                 </div>
             </form>
@@ -67,16 +67,16 @@
             data.forEach(u => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-          <td>${u.id}</td>
-          <td>${u.nombre}</td>
-          <td>${u.correo}</td>
-          <td>${u.edad}</td>
-          <td>${u.telefono}</td>
-          <td>
-            <button class="btn btn-sm btn-warning me-1" onclick="editarUsuario(${u.id})">Editar</button>
-            <button class="btn btn-sm btn-danger" onclick="eliminarUsuario(${u.id})">Eliminar</button>
-          </td>
-        `;
+             <td>${u.id}</td>
+             <td>${u.nombre}</td>
+             <td>${u.correo}</td>
+             <td>${u.edad}</td>
+             <td>${u.telefono}</td>
+             <td>
+             <button class="btn btn-sm btn-warning me-1" onclick="editarUsuario(${u.id})">Editar</button>
+             <button class="btn btn-sm btn-danger" onclick="eliminarUsuario(${u.id})">Eliminar</button>
+             </td>
+             `;
                 tbody.appendChild(tr);
             });
         }
@@ -109,7 +109,7 @@
                     body: JSON.stringify(usuario)
                 });
                 modoEdicion = false;
-                document.getElementById('btnGuardar').textContent = '+';
+                document.getElementById('btnGuardar').textContent = 'Guardar';
             }
 
             e.target.reset();
@@ -127,7 +127,7 @@
             document.getElementById('edad').value = u.edad;
             document.getElementById('telefono').value = u.telefono;
 
-            document.getElementById('btnGuardar').textContent = '✔';
+            document.getElementById('btnGuardar').textContent = 'Editar';
             modoEdicion = true;
         }
 
