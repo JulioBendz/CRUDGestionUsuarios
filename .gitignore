@@ -1,0 +1,58 @@
+## Visual Studio ##
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build results ##
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+## NuGet Packages ##
+*.nupkg
+*.snupkg
+*.nuspec
+*.psmdcp
+*.pdb
+*.cache
+*.PackageReference.props
+*.PackageReference.targets
+packages/
+
+## Visual Studio Code ##
+.vscode/
+
+## Windows ##
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+## Others ##
+*.log
+*.tmp
+*.bak
+*.dbmdl
+*.jfm
+*.sqlite
+*.sqlite3
+
+# Publish
+publish/
+PublishProfiles/
+
+# Environment and secrets
+.env
+appsettings.Development.json
+
+# Rider / JetBrains IDE
+.idea/
+*.iml
