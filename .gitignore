@@ -56,3 +56,51 @@ appsettings.Development.json
 # Rider / JetBrains IDE
 .idea/
 *.iml
+
+# OS
+.DS_Store
+
+# Test output
+TestResults/
+*.trx
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+coverage*.json
+
+# User secrets / private keys
+secrets.json
+*.pfx
+*.key
+*.pem
+
+# Dotnet local settings / tooling
+.localhistory/
+.vscode/.history
+
+# IDE/tooling extras
+*.sublime-workspace
+*.sublime-project
+
+# Optional: ignore local appsettings variants (activar si no quieres trackear appsettings.json)
+# appsettings.Local.json
+# appsettings.*.local.json
+
+# If you manage client libs with LibMan or npm, do not commit them
+wwwroot/lib/
+
+# Local DB / SQL Server files
+*.mdf
+*.ldf
+
+# NuGet/cache/tooling
+.nuget/
+.nuget/packages/
+
+# Optional: ignore local launch settings (uncomment if desired)
+# Properties/launchSettings.json
+
+# Ignore node_modules if present
+node_modules/
